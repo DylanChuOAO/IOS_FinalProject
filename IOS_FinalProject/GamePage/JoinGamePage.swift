@@ -62,10 +62,10 @@ struct JoinGamePage: View {
                             (result) in
                             switch result {
                             case .success(let successmsg):
-                                print("進入房間成功")
-                                print(isWaitingRoomPage)
-                                isWaitingRoomPage = true
                                 print(successmsg)
+                                DispatchQueue.main.async {
+                                    isWaitingRoomPage = true
+                                }
                             case .failure(_):
                                 print("進入房間失敗")
                             }
