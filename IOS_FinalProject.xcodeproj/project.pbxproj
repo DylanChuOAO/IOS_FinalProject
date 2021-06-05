@@ -26,6 +26,7 @@
 		FC8A6BAE263908D900567B35 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FC8A6BAD263908D900567B35 /* FirebaseAuth */; };
 		FC8A6BB326390B9B00567B35 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = FC8A6BB226390B9B00567B35 /* FirebaseFirestoreSwift-Beta */; };
 		FC8A6BB526390BB200567B35 /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = FC8A6BB426390BB200567B35 /* FirebaseStorageSwift-Beta */; };
+		FCB9BC92266A026500203EE2 /* GameRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB9BC91266A026500203EE2 /* GameRule.swift */; };
 		FCEB9D372642C17500752A22 /* FirebaseControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCEB9D362642C17500752A22 /* FirebaseControl.swift */; };
 		FCEB9D392643D34500752A22 /* CharactersPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCEB9D382643D34500752A22 /* CharactersPage.swift */; };
 		FCEB9D3B2643D6F900752A22 /* jf-openhuninn-1.1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FCEB9D3A2643D6F900752A22 /* jf-openhuninn-1.1.ttf */; };
@@ -51,6 +52,7 @@
 		FC8A6B9D2639055100567B35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FC8A6BA02639055100567B35 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FC8A6BA22639055100567B35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FCB9BC91266A026500203EE2 /* GameRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRule.swift; sourceTree = "<group>"; };
 		FCEB9D362642C17500752A22 /* FirebaseControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseControl.swift; sourceTree = "<group>"; };
 		FCEB9D382643D34500752A22 /* CharactersPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersPage.swift; sourceTree = "<group>"; };
 		FCEB9D3A2643D6F900752A22 /* jf-openhuninn-1.1.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "jf-openhuninn-1.1.ttf"; sourceTree = "<group>"; };
@@ -102,9 +104,9 @@
 		FC306A062664D23600F6BA58 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				FCEB9D362642C17500752A22 /* FirebaseControl.swift */,
 				FC1D451A265365E900571B91 /* UserData.swift */,
 				FC3B9EF026395423007E993A /* Data.swift */,
-				FCEB9D362642C17500752A22 /* FirebaseControl.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -123,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				FC306A11266685F900F6BA58 /* GameStartPage.swift */,
+				FCB9BC91266A026500203EE2 /* GameRule.swift */,
 			);
 			path = GameStart;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				FCEB9D392643D34500752A22 /* CharactersPage.swift in Sources */,
 				FCEB9D3F2649667E00752A22 /* GamePage.swift in Sources */,
 				FC306A0B2664DE9A00F6BA58 /* JoinGamePage.swift in Sources */,
+				FCB9BC92266A026500203EE2 /* GameRule.swift in Sources */,
 				FC2723E02653E1E60043D2B7 /* CreateAccount.swift in Sources */,
 				FC306A12266685F900F6BA58 /* GameStartPage.swift in Sources */,
 				FCEB9D3D2646A1A000752A22 /* SignupPage.swift in Sources */,

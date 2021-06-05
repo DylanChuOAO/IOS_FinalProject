@@ -10,10 +10,13 @@ import SwiftUI
 @main
 struct IOS_FinalProjectApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject private var UserDataComponent = userData()
+    @StateObject private var GameDataComponent = gameData()
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(userData())
+                .environmentObject(UserDataComponent)
+                .environmentObject(GameDataComponent)
         }
     }
 }

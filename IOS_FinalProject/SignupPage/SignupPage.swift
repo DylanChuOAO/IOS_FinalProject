@@ -84,18 +84,19 @@ struct SignupPage: View {
                                 showAlert = true
                             }else{
                                 Firebase.shared.setUserDisplayName(userDisplayName: DataComponent.Name)
-                                let newUser = UserData(Body: DataComponent.Body, Eye: DataComponent.Eye, Hat: DataComponent.Hat, Name: DataComponent.Name, Email: DataComponent.Email, Password: DataComponent.Password, Gender: DataComponent.Gender, Age: Int(DataComponent.Age), CreateRoom: DataComponent.CreateRoom)
+                                let newUser = UserData(Body: DataComponent.Body, Eye: DataComponent.Eye, Hat: DataComponent.Hat, Name: DataComponent.Name, Email: DataComponent.Email, Password: DataComponent.Password, Gender: DataComponent.Gender, Age: Int(DataComponent.Age))
                                 Firebase.shared.createUserData(userData: newUser, uid: currentUser!.uid){
                                     (result) in
                                     switch result{
                                     case .success(let successmsg):
                                         print(successmsg)
+                                        isGamePage = true
                                     case .failure(_):
                                         print("上傳錯誤")
                                         showAlertMsg(msg: "發生不明錯誤，請重新嘗試")
                                     }
                                 }
-                                isGamePage = true
+                                //isGamePage = true
                             }
                         }
                         , label: {
@@ -166,7 +167,6 @@ struct SignupPage: View {
             self.showAlert = true
         }
     }
-    
 }
 
 struct SignupPage_Previews: PreviewProvider {

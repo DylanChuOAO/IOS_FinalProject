@@ -153,16 +153,36 @@ class Firebase: ObservableObject{
             print(error)
         }
     }
-    //加入房間
-    func joinRoom(completion: @escaping((Result<[GameData], NormalErr>) -> Void)) {
+    //玩家2 加入房間 修改player2
+    func joinRoom(player: playerData, roomID: String,completion: @escaping((Result<[GameData], NormalErr>) -> Void)) {
+        let db = Firestore.firestore()
+        let documentReference = db.collection("Rooms").document(roomID)
+        documentReference.getDocument{ document, error in
+            guard let document = document,
+                  document.exists,
+                  var room = try? document.data(as: GameData.self)
+            else{ return }
+            room.player2 = player
+            do {
+                try documentReference.setData(from: room)
+            } catch {
+                completion(.failure(NormalErr.error))
+                print(error)
+            }
+            print(room)
+        }
+    }
+    //讀取某個collection下全部的 documents
+    //Rooms
+    func fetchRooms(completion: @escaping((Result<[GameData], NormalErr>) -> Void)) {
         let db = Firestore.firestore()
         db.collection("Rooms").getDocuments{ snapshot, error in
-            guard let snapshot = snapshot else { return }
-            let game = snapshot.documents.compactMap { snapshot in
+            guard let snapshot = snapshot else { return}
+            let rooms = snapshot.documents.compactMap{ snapshot in
                 try? snapshot.data(as: GameData.self)
             }
-            print(game)
-            completion(.success(game))
+            print(rooms)
+            completion(.success(rooms))
             if error?.localizedDescription != nil {
                 completion(.failure(NormalErr.error))
             }

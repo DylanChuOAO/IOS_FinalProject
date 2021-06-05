@@ -11,7 +11,7 @@ import FirebaseAuth
 struct UserDataPage: View {
     @Binding var isUserDataPage: Bool
     @State private var currentUser = Auth.auth().currentUser
-    @State private var currentUserData = UserData(Body: 0, Eye: 0, Hat: 0, Name: "", Email: "", Password: "",Gender: 0, Age: 18, CreateRoom: 0)
+    @State private var currentUserData = UserData(Body: 0, Eye: 0, Hat: 0, Name: "", Email: "", Password: "",Gender: 0, Age: 18)
     var charcterView: some View{
         ZStack{
             Image("body\(currentUserData.Body)")

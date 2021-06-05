@@ -11,6 +11,8 @@ import FirebaseStorage
 import FirebaseStorageSwift
 
 struct GamePage: View {
+    @EnvironmentObject private var UserDataComponent: userData
+    @EnvironmentObject private var GameDataComponent: gameData
     @State private var isCreateGamePage = false
     @State private var isJoinGamePage = false
     @State private var isUserDataPage = false

@@ -12,8 +12,15 @@ import FirebaseStorageSwift
 
 struct CreateGamePage: View {
     @EnvironmentObject private var UserDataComponent: userData
-    @EnvironmentObject private var DataComponent: gameData
+    @EnvironmentObject private var GameDataComponent: gameData
     @Binding var isCreateGamePage: Bool
+    @State private var isWaitingRoomPage = false
+    @State private var currentUser = Auth.auth().currentUser
+    @State private var currentUserData = UserData(Body: 0, Eye: 0, Hat: 0, Name: "", Email: "", Password: "",Gender: 0, Age: 18)
+    @State private var alertMsg = ""
+    @State private var showAlert = false
+    @State private var myAlert = Alert(title: Text(""))
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var body: some View {
         VStack{
             VStack{
@@ -34,7 +41,7 @@ struct CreateGamePage: View {
                                 .padding()
                         }
                         HStack{
-                            Text(DataComponent.roomNameString )
+                            Text(GameDataComponent.roomNameString)
                                 .font(.custom("jf-openhuninn-1.1", size: 40))
                                 .frame(width: 150, height: 70, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                                 .background(Color.purple
@@ -51,7 +58,7 @@ struct CreateGamePage: View {
                 VStack{
                     Button(action: {
                         let randomNum = Int.random(in: 100000..<1000000)
-                        DataComponent.roomNameString = String(randomNum)
+                        GameDataComponent.roomNameString = String(randomNum)
                     }, label: {
                         Image("dice")
                             .resizable()
@@ -70,9 +77,19 @@ struct CreateGamePage: View {
                                 .frame(width: 150, height: 75)
                         }).padding()
                         Button(action: {
-                            //出問題的地方 6/1
-                            //let newUser = playerData(index: 0,Name: UserDataComponent.Name, Body: UserDataComponent.Body, Eye: UserDataComponent.Eye, Hat: UserDataComponent.Hat)
-                            //let newgame = GameData(id: "0", roomNameString: DataComponent.roomNameString, players: playerData(index: 0,Name: UserDataComponent.Name, Body: UserDataComponent.Body, Eye: UserDataComponent.Eye, Hat: UserDataComponent.Hat))
+                            let newUser1 = playerData(flag: 0, Name: currentUserData.Name,  Body: currentUserData.Body, Eye: currentUserData.Eye, Hat: currentUserData.Hat)
+                            print(newUser1)
+                            let newUser2 = playerData(flag: 0, Name: "", Body: -1,  Eye:-1, Hat: -1)
+                            let newgame = GameData( roomNameString: GameDataComponent.roomNameString,  player1: newUser1, player2: newUser2)
+                            Firebase.shared.createRoom(GameData: newgame, roomID: GameDataComponent.roomNameString){ (result) in
+                                switch result{
+                                case .success(let successmsg):
+                                    print(successmsg)
+                                    isWaitingRoomPage = true
+                                case .failure(_):
+                                    print("建立房間失敗")
+                                }
+                            }
                         }, label: {
                             Image("navigation_next")
                                 .resizable()
@@ -85,10 +102,39 @@ struct CreateGamePage: View {
         .background(
             Image("mountain_background")
                 .contrast(0.8))
-        .onAppear()
+        .fullScreenCover(isPresented: $isWaitingRoomPage, content: {
+            WaitingRoomPage()
+        })
+        .onAppear{
+            Firebase.shared.fetchUsers(){ result in
+                switch (result) {
+                case .success(let dataArray):
+                    for i in dataArray {
+                        if i.id == currentUser?.uid {
+                            currentUserData = i
+                            break
+                        }
+                    }
+                case .failure(_):
+                    print("抓取失敗")
+                }
+            }
+        }
+    }
+    func showAlertMsg(msg: String) -> Void {
+        self.alertMsg = msg
+        if alertMsg == "建立房間成功" {
+            self.myAlert = Alert(title: Text("成功"), message: Text(alertMsg), dismissButton: .default(Text("進入等待室"), action: {
+                self.presentationMode.wrappedValue.dismiss()}))
+            self.showAlert = true
+        }
+        else {
+            self.myAlert = Alert(title: Text("錯誤"), message: Text(alertMsg), dismissButton:
+                .cancel(Text("重新選擇房號")))
+            self.showAlert = true
+        }
     }
 }
-
 struct CreateGamePage_Previews: PreviewProvider {
     static var previews: some View {
         CreateGamePage(isCreateGamePage: .constant(true))

@@ -57,9 +57,6 @@ struct CreateAccount: View {
                     .padding()
                 }
             }
-            .onAppear(perform: {
-                UITableView.appearance().backgroundColor = .clear
-            })
             HStack{
                 Button(action: {
                     isCreate = false

@@ -27,13 +27,20 @@ struct GameStartPage: View {
              .offset(x: -10, y: -95)
      }.frame(width: 300, height: 300, alignment: .center)
  }*/
-    var chessView: some View{
+    @State private var UIColor = Color(red: 238/255, green: 186/255, blue: 85/255)
+    @State private var UIColor2 = Color(red: 32/255, green: 114/255, blue: 69/255)
+    var chessBackView: some View{
         ZStack{
-            Image("1280px-Xiangqi_ad1.svg")
-                .resizable()
-                .frame(width: 70, height: 70, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+            Circle()
+                .foregroundColor(UIColor2)
+                .frame(width: 77, height: 77, alignment: .center)
+            //Image("1280px-Xiangqi_ad1.svg")
+              //  .resizable()
 
-        }.frame(width: 80, height: 80, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+        }.frame(width: 88, height: 80, alignment: .center)
+        .border(Color.black)
+    }
+    struct clickChess {
         
     }
     var body: some View {
@@ -44,131 +51,39 @@ struct GameStartPage: View {
                     .font(.custom("HanziPenTC-W5", size: 50))
             }.padding(.vertical)
             VStack{
-               HStack{
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                    chessView
+                HStack{
+                    Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                        chessBackView
                     })
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                    chessView
-                        
-                })
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                    chessView
-                })
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                    chessView
-                })
+                    Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                        chessBackView
+                    })
+                    Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                        chessBackView
+                    })
+                    Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                        chessBackView
+                    })
                }
                 HStack{
-                    Button(action: {}, label: {
-                     chessView
+                    Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                     chessBackView
                      })
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                         
-                 })
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                 })
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                 })
-                }
-                HStack{
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
+                     Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                         chessBackView
                      })
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                         
-                 })
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                 })
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                 })
-                }
-                HStack{
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
+                     Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                         chessBackView
                      })
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                         
-                 })
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                 })
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                 })
-                }
-                HStack{
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
+                     Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                         chessBackView
                      })
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                         
-                 })
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                 })
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                 })
-                }
-                HStack{
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                     })
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                         
-                 })
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                 })
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                 })
-                }
-                HStack{
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                     })
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                         
-                 })
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                 })
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                 })
-                }
-                HStack{
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                     })
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                         
-                 })
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                 })
-                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
-                     chessView
-                 })
                 }
                 Spacer()
-            }.background(
-                Image("chessboard")
-                    .resizable()
-                    .contrast(0.8))
+            }
+            
+            .background(UIColor)
+            .padding()
         }.background(
             Image("mountain_background")
                 .contrast(0.8))

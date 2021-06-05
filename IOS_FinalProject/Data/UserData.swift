@@ -28,7 +28,6 @@ struct UserData: Codable, Identifiable {
     let Password: String
     let Gender: Int
     let Age: Int
-    let CreateRoom: Int //0:加入 1:建立
 }
 class gameData: ObservableObject {
     @Published var roomNameString: String = ""
@@ -36,10 +35,11 @@ class gameData: ObservableObject {
 struct GameData: Codable, Identifiable {
     @DocumentID var id: String?
     var roomNameString: String
-    var players: [playerData]
+    var player1: playerData
+    var player2: playerData
 }
 struct playerData: Codable {
-    var index: Int
+    var flag: Int
     var Name: String
     var Body: Int
     var Eye: Int
