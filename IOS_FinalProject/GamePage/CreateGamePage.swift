@@ -43,7 +43,7 @@ struct CreateGamePage: View {
                         HStack{
                             Text(GameDataComponent.roomNameString)
                                 .font(.custom("jf-openhuninn-1.1", size: 40))
-                                .frame(width: 150, height: 70, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                .frame(width: 150, height: 70, alignment: .center)
                                 .background(Color.purple
                                                 .blur(radius: 6)
                                                 .cornerRadius(20))
@@ -79,12 +79,13 @@ struct CreateGamePage: View {
                         Button(action: {
                             let newUser1 = playerData(flag: 0, Name: currentUserData.Name,  Body: currentUserData.Body, Eye: currentUserData.Eye, Hat: currentUserData.Hat)
                             print(newUser1)
-                            let newUser2 = playerData(flag: 0, Name: "", Body: -1,  Eye:-1, Hat: -1)
-                            let newgame = GameData( roomNameString: GameDataComponent.roomNameString,  player1: newUser1, player2: newUser2)
+                            let newUser2 = playerData(flag: 1, Name: "", Body: -1,  Eye:-1, Hat: -1)
+                            let newgame = GameData( roomNameString: GameDataComponent.roomNameString, gamestart: false, player1: newUser1, player2: newUser2)
                             Firebase.shared.createRoom(GameData: newgame, roomID: GameDataComponent.roomNameString){ (result) in
                                 switch result{
                                 case .success(let successmsg):
                                     print(successmsg)
+                                    UserDataComponent.CreateRoom = 1
                                     isWaitingRoomPage = true
                                 case .failure(_):
                                     print("建立房間失敗")
@@ -99,12 +100,12 @@ struct CreateGamePage: View {
                 }
             }
         }
-        .background(
-            Image("mountain_background")
-                .contrast(0.8))
         .fullScreenCover(isPresented: $isWaitingRoomPage, content: {
             WaitingRoomPage()
         })
+        .background(
+            Image("mountain_background")
+                .contrast(0.8))
         .onAppear{
             Firebase.shared.fetchUsers(){ result in
                 switch (result) {

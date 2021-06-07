@@ -35,6 +35,7 @@ class gameData: ObservableObject {
 struct GameData: Codable, Identifiable {
     @DocumentID var id: String?
     var roomNameString: String
+    var gamestart: Bool
     var player1: playerData
     var player2: playerData
 }

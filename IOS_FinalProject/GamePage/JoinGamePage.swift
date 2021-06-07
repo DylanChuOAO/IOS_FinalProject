@@ -63,9 +63,8 @@ struct JoinGamePage: View {
                             switch result {
                             case .success(let successmsg):
                                 print(successmsg)
-                                DispatchQueue.main.async {
-                                    isWaitingRoomPage = true
-                                }
+                                UserDataComponent.CreateRoom = 2
+                                isWaitingRoomPage = true
                             case .failure(_):
                                 print("進入房間失敗")
                             }

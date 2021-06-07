@@ -11,28 +11,13 @@ import FirebaseStorage
 import FirebaseStorageSwift
 
 struct WaitingRoomPage: View {
+    @EnvironmentObject private var UserDataComponent: userData
     @EnvironmentObject private var GameDataComponent: gameData
-    @State private var currentRoomData = GameData(roomNameString: "", player1: playerData(flag: -1, Name: "", Body: -1, Eye: -1, Hat: -1), player2: playerData(flag: -1, Name: "", Body: -1, Eye: -1, Hat: -1))
-    
-    /*var charcterView: some View{
-     ZStack{
-         Image("body\(currentUserData.Body)")
-             .resizable()
-             .scaledToFit()
-             .frame(width: 300, height: 300, alignment: .center)
-             .offset(x: 0, y: 0)
-         Image("eye\(currentUserData.Eye)")
-             .resizable()
-             .scaledToFit()
-             .frame(width: 300, height: 300, alignment: .center)
-             .offset(x: 0, y: 0)
-         Image("hat\(currentUserData.Hat)")
-             .resizable()
-             .scaledToFit()
-             .frame(width: 80, height: 80, alignment: .center)
-             .offset(x: -10, y: -95)
-     }.frame(width: 300, height: 300, alignment: .center)
- }*/
+    @State private var currentRoomData = GameData(roomNameString: "", gamestart: false, player1: playerData(flag: -1, Name: "", Body: -1, Eye: -1, Hat: -1), player2: playerData(flag: -1, Name: "", Body: -1, Eye: -1, Hat: -1))
+    @State private var ImageString = ""
+    @State private var alertText: String = ""
+    @State private var alertButtonText: String = ""
+    @State private var showAlert = false
     var body: some View {
         VStack{
             VStack{
@@ -43,10 +28,10 @@ struct WaitingRoomPage: View {
                 HStack{
                     VStack{
                         Text(currentRoomData.roomNameString)
-                            .font(.custom("HanziPenTC-W5", size: 40))
+                            .font(.custom("HanziPenTC-W5", size: 25))
                         +
-                        Text(" 號房")
-                            .font(.custom("jf-openhuninn-1.1", size: 30))
+                        Text(" 房")
+                            .font(.custom("jf-openhuninn-1.1", size: 25))
                     }.padding()
                     Spacer()
                     Image("ready")
@@ -62,10 +47,9 @@ struct WaitingRoomPage: View {
                 HStack{
                     VStack{
                         Text("Player1")
-                            .font(.custom("jf-openhuninn-1.1", size: 35))
-                            .padding()
+                            .font(.custom("jf-openhuninn-1.1", size: 25))
                         Text(currentRoomData.player1.Name)
-                            .font(.custom("jf-openhuninn-1.1", size: 35))
+                            .font(.custom("jf-openhuninn-1.1", size: 25))
                             .padding()
                     }.padding()
                     Spacer()
@@ -99,10 +83,9 @@ struct WaitingRoomPage: View {
                 HStack{
                     VStack{
                         Text("Player2")
-                            .font(.custom("jf-openhuninn-1.1", size: 35))
-                            .padding()
+                            .font(.custom("jf-openhuninn-1.1", size: 25))
                         Text(currentRoomData.player2.Name)
-                            .font(.custom("jf-openhuninn-1.1", size: 35))
+                            .font(.custom("jf-openhuninn-1.1", size: 25))
                             .padding()
                     }.padding()
                     Spacer()
@@ -132,12 +115,42 @@ struct WaitingRoomPage: View {
                             .blur(radius: 6)
                             .cornerRadius(20))
             .padding()
-            Image("navigation_go")
-                .padding()
+            Button(action: {
+                if UserDataComponent.CreateRoom == 1 && currentRoomData.player2.Name != ""{
+                    Firebase.shared.gameStart(gamestart: true, roomID: GameDataComponent.roomNameString){ result in
+                        switch result {
+                        case .success(let successmsg):
+                            print(successmsg)
+                        case .failure(_):
+                            print("進入遊戲失敗")
+                        }
+                    }
+                }
+                else if UserDataComponent.CreateRoom == 2 {
+                    showAlert = true
+                    alertText = "你不是房長"
+                    alertButtonText = "等房長"
+                }
+            }, label: {
+                Image(ImageString)
+                    .resizable()
+                    .frame(width: 150, height: 100, alignment: .center)
+                    .padding()
+            })
+            .alert(isPresented: $showAlert, content: { () -> Alert in
+                return Alert(title: Text("錯誤"), message: Text(alertText), dismissButton: .default(Text(alertButtonText)))
+            })
         }.background(
             Image("mountain_background")
                 .contrast(0.8))
         .onAppear{
+            //根據玩家1、2 有不同的button格式
+            if UserDataComponent.CreateRoom == 1{
+                ImageString = "circle_ok"
+            }else if UserDataComponent.CreateRoom == 2{
+                ImageString = "circle_ng"
+            }
+            //抓取房間
             Firebase.shared.fetchRooms(){ result in
                 switch (result) {
                 case .success(let dataArray):
@@ -148,10 +161,23 @@ struct WaitingRoomPage: View {
                         }
                     }
                 case .failure(_):
-                    print("抓取失敗")
+                    print("房間抓取失敗")
+                }
+            }
+            //更新房間
+            Firebase.shared.checkRoomsChange(roomID: GameDataComponent.roomNameString){ result in
+                switch (result) {
+                case .success(let updatedRooms):
+                    currentRoomData = updatedRooms
+                    print("gamestart \(currentRoomData.gamestart)")
+                case .failure(_):
+                    print("房間更新失敗")
                 }
             }
         }
+        .fullScreenCover(isPresented: $currentRoomData.gamestart, content: {
+            GameStartPage()
+        })
     }
 }
 

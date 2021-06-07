@@ -154,7 +154,7 @@ class Firebase: ObservableObject{
         }
     }
     //玩家2 加入房間 修改player2
-    func joinRoom(player: playerData, roomID: String,completion: @escaping((Result<[GameData], NormalErr>) -> Void)) {
+    func joinRoom(player: playerData, roomID: String, completion: @escaping((Result<String, NormalErr>) -> Void)) {
         let db = Firestore.firestore()
         let documentReference = db.collection("Rooms").document(roomID)
         documentReference.getDocument{ document, error in
@@ -165,6 +165,27 @@ class Firebase: ObservableObject{
             room.player2 = player
             do {
                 try documentReference.setData(from: room)
+                completion(.success("加入房間成功"))
+            } catch {
+                completion(.failure(NormalErr.error))
+                print(error)
+            }
+            print(room)
+        }
+    }
+    //Gamestart 修改gamestart = true
+    func gameStart(gamestart: Bool, roomID: String, completion: @escaping((Result<String, NormalErr>) -> Void)){
+        let db = Firestore.firestore()
+        let documentReference = db.collection("Rooms").document(roomID)
+        documentReference.getDocument{ document, error in
+            guard let document = document,
+                  document.exists,
+                  var room = try? document.data(as: GameData.self)
+            else{ return }
+            room.gamestart = gamestart
+            do {
+                try documentReference.setData(from: room)
+                completion(.success("進入遊戲成功"))
             } catch {
                 completion(.failure(NormalErr.error))
                 print(error)
@@ -184,6 +205,19 @@ class Firebase: ObservableObject{
             print(rooms)
             completion(.success(rooms))
             if error?.localizedDescription != nil {
+                completion(.failure(NormalErr.error))
+            }
+        }
+    }
+    //持續偵測資料是否更新
+    func checkRoomsChange(roomID: String, completion: @escaping((Result<GameData, NormalErr>) -> Void)) {
+        let db = Firestore.firestore()
+        db.collection("Rooms").document("\(roomID)").addSnapshotListener{ snapshot, error in
+            guard let snapshot = snapshot else { return }
+            do {
+                let rooms = try snapshot.data(as: GameData.self)!
+                completion(.success(rooms))
+            } catch {
                 completion(.failure(NormalErr.error))
             }
         }
