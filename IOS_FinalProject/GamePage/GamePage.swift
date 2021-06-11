@@ -20,14 +20,15 @@ struct GamePage: View {
     var body: some View {
         VStack{
             VStack{
-                Text("對戰暗棋")
+                Text("五子棋")
                     .font(.custom("HanziPenTC-W5", size: 50))
             }.padding(.vertical)
             VStack{
                 Spacer()
                 Image("chessTitle")
                     .resizable()
-                    .frame(width: 246, height: 200)
+                    .scaledToFit()
+                    .frame(width: 300)
                 Spacer()
                 Button(action: {
                     isCreateGamePage = true
@@ -68,7 +69,7 @@ struct GamePage: View {
                 }).fullScreenCover(isPresented: $isUserDataPage, content: {
                     UserDataPage(isUserDataPage: $isUserDataPage)
                 })
-                Link(destination: URL(string: "https://zh.wikipedia.org/wiki/暗棋".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")!, label: {
+                Link(destination: URL(string: "https://zh.wikipedia.org/wiki/五子棋".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")!, label: {
                     Text("遊戲規則")
                         .font(.custom("jf-openhuninn-1.1", size: 25))
                         .frame(width: 200,height: 30)

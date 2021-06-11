@@ -26,13 +26,15 @@
 		FC8A6BAE263908D900567B35 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FC8A6BAD263908D900567B35 /* FirebaseAuth */; };
 		FC8A6BB326390B9B00567B35 /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = FC8A6BB226390B9B00567B35 /* FirebaseFirestoreSwift-Beta */; };
 		FC8A6BB526390BB200567B35 /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = FC8A6BB426390BB200567B35 /* FirebaseStorageSwift-Beta */; };
-		FCB9BC92266A026500203EE2 /* GameRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB9BC91266A026500203EE2 /* GameRule.swift */; };
 		FCEB9D372642C17500752A22 /* FirebaseControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCEB9D362642C17500752A22 /* FirebaseControl.swift */; };
 		FCEB9D392643D34500752A22 /* CharactersPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCEB9D382643D34500752A22 /* CharactersPage.swift */; };
 		FCEB9D3B2643D6F900752A22 /* jf-openhuninn-1.1.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FCEB9D3A2643D6F900752A22 /* jf-openhuninn-1.1.ttf */; };
 		FCEB9D3D2646A1A000752A22 /* SignupPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCEB9D3C2646A1A000752A22 /* SignupPage.swift */; };
 		FCEB9D3F2649667E00752A22 /* GamePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCEB9D3E2649667E00752A22 /* GamePage.swift */; };
 		FCEB9D412649767F00752A22 /* Hanzipen.ttc in Resources */ = {isa = PBXBuildFile; fileRef = FCEB9D402649767E00752A22 /* Hanzipen.ttc */; };
+		FCFFFBCA26737FBC006B533F /* ViewContoller.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFFFBC926737FBC006B533F /* ViewContoller.swift */; };
+		FCFFFBCC26739F82006B533F /* chessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFFFBCB26739F82006B533F /* chessView.swift */; };
+		FCFFFBCE2673AE9D006B533F /* WinPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFFFBCD2673AE9D006B533F /* WinPage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,13 +54,15 @@
 		FC8A6B9D2639055100567B35 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FC8A6BA02639055100567B35 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FC8A6BA22639055100567B35 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FCB9BC91266A026500203EE2 /* GameRule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRule.swift; sourceTree = "<group>"; };
 		FCEB9D362642C17500752A22 /* FirebaseControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseControl.swift; sourceTree = "<group>"; };
 		FCEB9D382643D34500752A22 /* CharactersPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersPage.swift; sourceTree = "<group>"; };
 		FCEB9D3A2643D6F900752A22 /* jf-openhuninn-1.1.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "jf-openhuninn-1.1.ttf"; sourceTree = "<group>"; };
 		FCEB9D3C2646A1A000752A22 /* SignupPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPage.swift; sourceTree = "<group>"; };
 		FCEB9D3E2649667E00752A22 /* GamePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePage.swift; sourceTree = "<group>"; };
 		FCEB9D402649767E00752A22 /* Hanzipen.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Hanzipen.ttc; sourceTree = "<group>"; };
+		FCFFFBC926737FBC006B533F /* ViewContoller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewContoller.swift; sourceTree = "<group>"; };
+		FCFFFBCB26739F82006B533F /* chessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chessView.swift; sourceTree = "<group>"; };
+		FCFFFBCD2673AE9D006B533F /* WinPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +129,9 @@
 			isa = PBXGroup;
 			children = (
 				FC306A11266685F900F6BA58 /* GameStartPage.swift */,
-				FCB9BC91266A026500203EE2 /* GameRule.swift */,
+				FCFFFBCB26739F82006B533F /* chessView.swift */,
+				FCFFFBCD2673AE9D006B533F /* WinPage.swift */,
+				FCFFFBC926737FBC006B533F /* ViewContoller.swift */,
 			);
 			path = GameStart;
 			sourceTree = "<group>";
@@ -263,6 +269,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCFFFBCC26739F82006B533F /* chessView.swift in Sources */,
 				FC8A6B9C2639054F00567B35 /* ContentView.swift in Sources */,
 				FCEB9D372642C17500752A22 /* FirebaseControl.swift in Sources */,
 				FC306A092664DE7400F6BA58 /* CreateGamePage.swift in Sources */,
@@ -274,9 +281,10 @@
 				FCEB9D392643D34500752A22 /* CharactersPage.swift in Sources */,
 				FCEB9D3F2649667E00752A22 /* GamePage.swift in Sources */,
 				FC306A0B2664DE9A00F6BA58 /* JoinGamePage.swift in Sources */,
-				FCB9BC92266A026500203EE2 /* GameRule.swift in Sources */,
+				FCFFFBCA26737FBC006B533F /* ViewContoller.swift in Sources */,
 				FC2723E02653E1E60043D2B7 /* CreateAccount.swift in Sources */,
 				FC306A12266685F900F6BA58 /* GameStartPage.swift in Sources */,
+				FCFFFBCE2673AE9D006B533F /* WinPage.swift in Sources */,
 				FCEB9D3D2646A1A000752A22 /* SignupPage.swift in Sources */,
 				FC3B9EF126395423007E993A /* Data.swift in Sources */,
 			);

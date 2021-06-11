@@ -193,26 +193,6 @@ class Firebase: ObservableObject{
             print(room)
         }
     }
-    //Gamestart 遊戲開始 隨機旗子擺設
-    func Randomboards(chessboard: [chessboard], roomID: String, completion: @escaping((Result<String, NormalErr>) -> Void)){
-        let db = Firestore.firestore()
-        let documentReference = db.collection("Rooms").document(roomID)
-        documentReference.getDocument{ document, error in
-            guard let document = document,
-                  document.exists,
-                  var room = try? document.data(as: GameData.self)
-            else{ return }
-            room.chessboard = chessboard
-            do {
-                try documentReference.setData(from: room)
-                completion(.success("隨機旗子成功"))
-            } catch {
-                completion(.failure(NormalErr.error))
-                print(error)
-            }
-            print(room)
-        }
-    }
     func upadateAll(gameData: GameData, roomID: String, completion: @escaping((Result<String, NormalErr>) -> Void)){
         let db = Firestore.firestore()
         let documentReference = db.collection("Rooms").document(roomID)

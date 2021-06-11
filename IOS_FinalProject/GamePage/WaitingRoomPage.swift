@@ -17,29 +17,12 @@ import FirebaseStorageSwift
 struct WaitingRoomPage: View {
     @EnvironmentObject private var UserDataComponent: userData
     @EnvironmentObject private var GameDataComponent: gameData
-    @State private var currentRoomData = GameData( roomNameString: "", gamestart: false, chessboard: boards, chessdata: chesses, flag: 0, FirstClick: false, isSelected: false, selectedrank: -1, selectedsuit:"",selectedposition: -1, player1: playerData(Suit: "", Name: "", Body: -1, Eye: -1, Hat: -1), player2: playerData(Suit: "", Name: "", Body: -1, Eye: -1, Hat: -1))
+    @State private var currentRoomData = GameData(roomNameString: "", gamestart: true, chessboard: boards, flag: 0, whoWin: -1, player1: playerData(Suit: "黑", Name: "", Body: 0, Eye: 0, Hat: 0), player2: playerData(Suit: "白", Name: "", Body: 0, Eye: 0, Hat: 0))
     @State private var ImageString = ""
     @State private var alertText: String = ""
     @State private var alertButtonText: String = ""
     @State private var showAlert = false
-    @State private var isused: Bool = true
-    @State private var number = [Int](repeating: 0, count: 32)
-    func randomchess() -> Void {
-        for i in (0...31) {
-            repeat{
-                number[i] = Int.random(in: 0..<32)
-                isused = false
-                if(i>0){
-                    for j in (0...(i-1)){
-                        if(number[i] == number[j]){
-                            isused = true
-                        }
-                    }
-                }
-            }while(isused == true)
-            boards[i].index = number[i]
-        }
-    }
+    
     var body: some View {
         VStack{
             VStack{
@@ -138,29 +121,20 @@ struct WaitingRoomPage: View {
             .padding()
             Button(action: {
                 //進入遊戲
-                if UserDataComponent.CreateRoom == 1 && currentRoomData.player2.Body == -1{
+                if UserDataComponent.CreateRoom == 0 && currentRoomData.player2.Body == -1{
                     showAlert = true
                     alertText = "玩家二尚未進入"
                     alertButtonText = "等玩家二"
-                }else if UserDataComponent.CreateRoom == 2 {
+                }else if UserDataComponent.CreateRoom == 1 {
                     showAlert = true
                     alertText = "你不是房長"
                     alertButtonText = "等房長"
-                }else if UserDataComponent.CreateRoom == 1 && currentRoomData.player2.Body != -1{
+                }else if UserDataComponent.CreateRoom == 0 && currentRoomData.player2.Body != -1{
+                    //遊戲開始
                     Firebase.shared.gameStart(roomID: GameDataComponent.roomNameString){ result in
                         switch result {
                         case .success(let successmsg):
                             print(successmsg)
-                            //遊戲開始 洗牌
-                            randomchess()
-                            Firebase.shared.Randomboards(chessboard: boards, roomID: GameDataComponent.roomNameString){ result in
-                                switch result {
-                                case .success(let successmsg):
-                                    print(successmsg)
-                                case .failure(_):
-                                    print("隨機棋子失敗")
-                                }
-                            }
                         case .failure(_):
                             print("進入遊戲失敗")
                         }
@@ -181,9 +155,9 @@ struct WaitingRoomPage: View {
                 .contrast(0.8))
         .onAppear{
             //根據玩家1、2 有不同的button格式
-            if UserDataComponent.CreateRoom == 1{
+            if UserDataComponent.CreateRoom == 0{
                 ImageString = "circle_ok"
-            }else if UserDataComponent.CreateRoom == 2{
+            }else if UserDataComponent.CreateRoom == 1{
                 ImageString = "circle_ng"
             }
             //抓取房間

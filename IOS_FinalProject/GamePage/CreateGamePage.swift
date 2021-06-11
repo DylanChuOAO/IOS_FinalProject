@@ -80,12 +80,12 @@ struct CreateGamePage: View {
                             let newUser1 = playerData(Suit: "", Name: currentUserData.Name,  Body: currentUserData.Body, Eye: currentUserData.Eye, Hat: currentUserData.Hat)
                             print(newUser1)
                             let newUser2 = playerData(Suit: "", Name: "", Body: -1,  Eye: -1, Hat: -1)
-                            let newgame = GameData( roomNameString: GameDataComponent.roomNameString, gamestart: false, chessboard: boards, chessdata: chesses, flag: 0, FirstClick: false ,isSelected: false, selectedrank: -1,  selectedsuit:"",selectedposition: -1,  player1: newUser1, player2: newUser2)
+                            let newgame = GameData(roomNameString: GameDataComponent.roomNameString, gamestart: false, chessboard: boards, flag: 0, whoWin: -1, player1: newUser1, player2: newUser2)
                             Firebase.shared.createRoom(GameData: newgame, roomID: GameDataComponent.roomNameString){ (result) in
                                 switch result{
                                 case .success(let successmsg):
                                     print(successmsg)
-                                    UserDataComponent.CreateRoom = 1
+                                    UserDataComponent.CreateRoom = 0
                                     isWaitingRoomPage = true
                                 case .failure(_):
                                     print("建立房間失敗")

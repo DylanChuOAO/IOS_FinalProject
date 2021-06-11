@@ -63,7 +63,7 @@ struct JoinGamePage: View {
                             switch result {
                             case .success(let successmsg):
                                 print(successmsg)
-                                UserDataComponent.CreateRoom = 2
+                                UserDataComponent.CreateRoom = 1
                                 isWaitingRoomPage = true
                             case .failure(_):
                                 print("進入房間失敗")
