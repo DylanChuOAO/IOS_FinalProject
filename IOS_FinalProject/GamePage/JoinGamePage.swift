@@ -57,7 +57,7 @@ struct JoinGamePage: View {
                             .frame(width: 150, height: 75)
                     }).padding()
                     Button(action: {
-                        let newUser2 = playerData(flag: 1, Name: currentUserData.Name,  Body: currentUserData.Body, Eye: currentUserData.Eye, Hat: currentUserData.Hat)
+                        let newUser2 = playerData(Suit: "", Name: currentUserData.Name,  Body: currentUserData.Body, Eye: currentUserData.Eye, Hat: currentUserData.Hat)
                         Firebase.shared.joinRoom(player: newUser2, roomID: GameDataComponent.roomNameString){
                             (result) in
                             switch result {

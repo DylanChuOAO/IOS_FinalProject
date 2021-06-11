@@ -77,10 +77,10 @@ struct CreateGamePage: View {
                                 .frame(width: 150, height: 75)
                         }).padding()
                         Button(action: {
-                            let newUser1 = playerData(flag: 0, Name: currentUserData.Name,  Body: currentUserData.Body, Eye: currentUserData.Eye, Hat: currentUserData.Hat)
+                            let newUser1 = playerData(Suit: "", Name: currentUserData.Name,  Body: currentUserData.Body, Eye: currentUserData.Eye, Hat: currentUserData.Hat)
                             print(newUser1)
-                            let newUser2 = playerData(flag: 1, Name: "", Body: -1,  Eye:-1, Hat: -1)
-                            let newgame = GameData( roomNameString: GameDataComponent.roomNameString, gamestart: false, player1: newUser1, player2: newUser2)
+                            let newUser2 = playerData(Suit: "", Name: "", Body: -1,  Eye: -1, Hat: -1)
+                            let newgame = GameData( roomNameString: GameDataComponent.roomNameString, gamestart: false, chessboard: boards, chessdata: chesses, flag: 0, FirstClick: false ,isSelected: false, selectedrank: -1,  selectedsuit:"",selectedposition: -1,  player1: newUser1, player2: newUser2)
                             Firebase.shared.createRoom(GameData: newgame, roomID: GameDataComponent.roomNameString){ (result) in
                                 switch result{
                                 case .success(let successmsg):

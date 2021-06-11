@@ -19,19 +19,5 @@ enum BodyColor: Int, Decodable{
     case 深藍色 = 3
     case 紫色 = 4
 }
-//["紅色", "黑色", "白色", "深藍色", "紫色", "淺藍色", "黃色", "粉紅色", "橘色", "深綠色", "淺綠色", "咖啡色"]
-
-
-
-/*struct picComponent: Codable, Identifiable{
-    var id = UUID()
-    var currentBody: Int
-    var currentEye: Int
-    var currentHat: Int
-    var username: String
-    var gender: Int
-    var age: Int
-}
-*/
 
 

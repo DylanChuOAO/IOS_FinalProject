@@ -174,7 +174,7 @@ class Firebase: ObservableObject{
         }
     }
     //Gamestart 修改gamestart = true
-    func gameStart(gamestart: Bool, roomID: String, completion: @escaping((Result<String, NormalErr>) -> Void)){
+    func gameStart(roomID: String, completion: @escaping((Result<String, NormalErr>) -> Void)){
         let db = Firestore.firestore()
         let documentReference = db.collection("Rooms").document(roomID)
         documentReference.getDocument{ document, error in
@@ -182,10 +182,49 @@ class Firebase: ObservableObject{
                   document.exists,
                   var room = try? document.data(as: GameData.self)
             else{ return }
-            room.gamestart = gamestart
+            room.gamestart = true
             do {
                 try documentReference.setData(from: room)
                 completion(.success("進入遊戲成功"))
+            } catch {
+                completion(.failure(NormalErr.error))
+                print(error)
+            }
+            print(room)
+        }
+    }
+    //Gamestart 遊戲開始 隨機旗子擺設
+    func Randomboards(chessboard: [chessboard], roomID: String, completion: @escaping((Result<String, NormalErr>) -> Void)){
+        let db = Firestore.firestore()
+        let documentReference = db.collection("Rooms").document(roomID)
+        documentReference.getDocument{ document, error in
+            guard let document = document,
+                  document.exists,
+                  var room = try? document.data(as: GameData.self)
+            else{ return }
+            room.chessboard = chessboard
+            do {
+                try documentReference.setData(from: room)
+                completion(.success("隨機旗子成功"))
+            } catch {
+                completion(.failure(NormalErr.error))
+                print(error)
+            }
+            print(room)
+        }
+    }
+    func upadateAll(gameData: GameData, roomID: String, completion: @escaping((Result<String, NormalErr>) -> Void)){
+        let db = Firestore.firestore()
+        let documentReference = db.collection("Rooms").document(roomID)
+        documentReference.getDocument{ document, error in
+            guard let document = document,
+                  document.exists,
+                  var room = try? document.data(as: GameData.self)
+            else{ return }
+            room = gameData
+            do {
+                try documentReference.setData(from: room)
+                completion(.success("時時上傳房間成功"))
             } catch {
                 completion(.failure(NormalErr.error))
                 print(error)
