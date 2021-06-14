@@ -15,12 +15,12 @@ struct chessView: View {
     var y: Int
     @EnvironmentObject private var GameDataComponent: gameData
     @State private var UIColor = Color(red: 238/255, green: 186/255, blue: 85/255)
-    @State private var currentRoomData = GameData(roomNameString: "", gamestart: false, chessboard: boards, flag: 0, whoWin: -1, player1: playerData(Suit: "黑", Name: "123", Body: 0, Eye: 0, Hat: 0), player2: playerData(Suit: "白", Name: "234", Body: 0, Eye: 0, Hat: 0))
-    
+    @State private var currentRoomData = GameData(roomNameString: "", gamestart: true, chessboard: boards, flag: 0, whoWin: -1, finish: false, player1: playerData(Suit: "黑", Name: "123", Body: 0, Eye: 0, Hat: 0), player2: playerData(Suit: "白", Name: "234", Body: 0, Eye: 0, Hat: 0))
+    // let xy = (x*9)+y
     var body: some View{
         VStack{
             ZStack{
-                Image(currentRoomData.chessboard[x][y].data)
+                Image(currentRoomData.chessboard[x*9+y].data)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 25, height: 25, alignment: .center)
@@ -48,7 +48,6 @@ struct chessView: View {
                  switch (result) {
                  case .success(let updatedRooms):
                      currentRoomData = updatedRooms
-                     print("gamestart \(currentRoomData.gamestart)")
                  case .failure(_):
                      print("房間更新失敗")
                  }
@@ -59,6 +58,6 @@ struct chessView: View {
 
 struct chessView_Previews: PreviewProvider {
     static var previews: some View {
-        chessView(x: 0, y: 0)
+        chessView(x: 1, y: 1)
     }
 }

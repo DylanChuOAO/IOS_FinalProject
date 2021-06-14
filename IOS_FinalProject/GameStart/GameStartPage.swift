@@ -12,7 +12,7 @@ import FirebaseStorageSwift
 struct GameStartPage: View {
     @EnvironmentObject private var UserDataComponent: userData
     @EnvironmentObject private var GameDataComponent: gameData
-    @State private var currentRoomData = GameData(roomNameString: "", gamestart: true, chessboard: boards, flag: 0, whoWin: -1,player1: playerData(Suit: "黑", Name: "123", Body: 0, Eye: 0, Hat: 0), player2: playerData(Suit: "白", Name: "234", Body: 0, Eye: 0, Hat: 0))
+    @State private var currentRoomData = GameData(roomNameString: "", gamestart: true, chessboard: boards, flag: 0, whoWin: -1, finish: false, player1: playerData(Suit: "黑", Name: "123", Body: 0, Eye: 0, Hat: 0), player2: playerData(Suit: "白", Name: "234", Body: 0, Eye: 0, Hat: 0))
     @State private var UIColor = Color(red: 238/255, green: 186/255, blue: 85/255)
     @State private var X: String = ""
     @State private var Y: String = ""
@@ -314,8 +314,8 @@ struct GameStartPage: View {
             }
         }.background(UIColor)
     }
-    func checkisblank(x: Int,y: Int) -> Bool {
-        if currentRoomData.chessboard[x - 1][y - 1].data == "無"{
+    func checkisblank(xy: Int) -> Bool {
+        if currentRoomData.chessboard[xy].data == "無"{
             return true
         }else{ //黑或白
             alertText = "已經有棋子了"
@@ -324,95 +324,106 @@ struct GameStartPage: View {
             return false
         }
     }
-    func RowWin(x: Int, y: Int, flag: Int, suit: String) -> Void {
+    func RowWin(xy: Int, flag: Int, suit: String) -> Void {
         var Connect = 1
         //判斷直五子
         for i in 1...4{
             //上
-            if(currentRoomData.chessboard[x-i][y].data == suit){
+            if xy-i*9 < 0{ break }
+            if(currentRoomData.chessboard[xy-i*9].data == suit){
                 Connect += 1
-            }else { break }
+            }
+            else { break }
         }
         for i in 1...4{
             //下
-            if(currentRoomData.chessboard[x+i][y].data == suit){
+            if xy-i*9 > 80{ break }
+            if(currentRoomData.chessboard[xy+i*9].data == suit){
                 Connect += 1
-            }else { break }
+            }
+            else { break }
         }
         if Connect >= 5{
             currentRoomData.whoWin = flag
-            isWinPage = true
+            currentRoomData.finish = true
         }
     }
-    func ColWin(x: Int, y: Int, flag: Int, suit: String) -> Void {
+    func ColWin(xy: Int, flag: Int, suit: String) -> Void {
         var Connect = 1
         //判斷橫五子
         for i in 1...4{
             //左
-            if(currentRoomData.chessboard[x][y-i].data == suit){
+            if (xy-i) % 9 == 8 || (xy-i) < 0{ break }
+            if(currentRoomData.chessboard[xy-i].data == suit){
                 Connect += 1
-            }else { break }
+            }
+            else { break }
         }
         for i in 1...4{
             //右
-            if(currentRoomData.chessboard[x][y+i].data == suit){
+            if (xy+i) % 9 == 0 || (xy-i) > 80{ break }
+            if(currentRoomData.chessboard[xy+i].data == suit){
                 Connect += 1
             }else { break }
         }
         if Connect >= 5{
             currentRoomData.whoWin = flag
-            isWinPage = true
+            currentRoomData.finish = true
         }
     }
-    func ObliWin1(x: Int, y: Int, flag: Int, suit: String) -> Void {
+    func ObliWin1(xy: Int, flag: Int, suit: String) -> Void {
         var Connect = 1
         //判斷左上 右下
         for i in 1...4{
             //左上
-            if(currentRoomData.chessboard[x-i][y-i].data == suit){
+            if (xy-i*10) % 9 == 8 || (xy-i*10) < 0{ break }
+            if(currentRoomData.chessboard[xy-i*10].data == suit){
                 Connect += 1
             }else { break }
         }
         for i in 1...4{
             //右下
-            if(currentRoomData.chessboard[x+i][y+i].data == suit){
+            if (xy+i*10) % 9 == 0 || (xy+i*10) > 80{ break }
+            if(currentRoomData.chessboard[xy+i*10].data == suit){
                 Connect += 1
             }else { break }
         }
         if Connect >= 5{
             currentRoomData.whoWin = flag
-            isWinPage = true
+            currentRoomData.finish = true
         }
     }
-    func ObliWin2(x: Int, y: Int, flag: Int, suit: String) -> Void {
+    func ObliWin2(xy: Int, flag: Int, suit: String) -> Void {
         var Connect = 1
         //判斷右上 左下
         for i in 1...4{
             //右上
-            if(currentRoomData.chessboard[x-i][y+i].data == suit){
+            if (xy-8*i) % 9 == 0 || (xy-8*i) < 0 { break }
+            if(currentRoomData.chessboard[xy-8*i].data == suit){
                 Connect += 1
             }else { break }
         }
         for i in 1...4{
             //左下
-            if(currentRoomData.chessboard[x+i][y-i].data == suit){
+            if (xy+8*i) % 9 == 8 || (xy+8*i) > 80 { break }
+            if(currentRoomData.chessboard[xy+8*i].data == suit){
                 Connect += 1
             }else { break }
         }
         if Connect >= 5{
             currentRoomData.whoWin = flag
-            isWinPage = true
+            currentRoomData.finish = true
         }
     }
-    func checkWin(x: Int, y: Int, flag: Int, suit: String) -> Void {
+    func checkWin(xy: Int, flag: Int, suit: String) -> Void {
         //判斷直五子
-        RowWin(x: x, y: y, flag: flag, suit: suit)
+        RowWin(xy: xy, flag: flag, suit: suit)
         //判斷橫五子
-        ColWin(x: x, y: y, flag: flag, suit: suit)
+        ColWin(xy: xy, flag: flag, suit: suit)
         //判斷左上 右下
-        ObliWin1(x: x, y: y, flag: flag, suit: suit)
+        ObliWin1(xy: xy, flag: flag, suit: suit)
         //判斷右上 左下
-        ObliWin2(x: x, y: y, flag: flag, suit: suit)
+        ObliWin2(xy: xy, flag: flag, suit: suit)
     }
     var body: some View {
         VStack{
@@ -499,33 +510,86 @@ struct GameStartPage: View {
                     Button(action: {
                         let xInt = Int(X)!
                         let yInt = Int(Y)!
-                        //P1介面、 遊戲說輪到P1了 P1為黑子
-                        if UserDataComponent.CreateRoom == 0 && currentRoomData.flag == 0{
-                            if checkisblank(x: xInt, y: yInt){
-                                //check (x,y)沒棋子
-                                currentRoomData.chessboard[xInt-1][yInt-1].data = "黑"
-                                currentRoomData.flag = 1
-                            }
-                        }
+                        let xy = (xInt-1)*9+(yInt-1)
                         //P1介面、 遊戲說輪到P2了
                         if UserDataComponent.CreateRoom == 0 && currentRoomData.flag == 1{
                             alertText = "還沒輪到你"
                             alertButtonText = "等等對手"
                             showAlert = true
                         }
-                        //P2介面、 遊戲說輪到P2了 P2為白子
-                        if UserDataComponent.CreateRoom == 1 && currentRoomData.flag == 1{
-                            if checkisblank(x: xInt, y: yInt){
-                                //check (x,y)沒棋子
-                                currentRoomData.chessboard[xInt-1][yInt-1].data = "白"
-                                currentRoomData.flag = 0
-                            }
-                        }
                         //P2介面、 遊戲說輪到P1了
                         if UserDataComponent.CreateRoom == 1 && currentRoomData.flag == 0{
                             alertText = "還沒輪到你"
                             alertButtonText = "等等對手"
                             showAlert = true
+                        }
+                        //P1介面、 遊戲說輪到P1了 P1為黑子
+                        if UserDataComponent.CreateRoom == 0 && currentRoomData.flag == 0{
+                            showAlert = false
+                            if checkisblank(xy: xy){
+                                //check (x,y)沒棋子
+                                currentRoomData.chessboard[xy].data = "黑"
+                                Firebase.shared.upadateAll(gameData: currentRoomData, roomID: GameDataComponent.roomNameString){ result in
+                                    switch (result) {
+                                    case .success(_):
+                                        print("黑棋.1成功")
+                                    case .failure(_):
+                                        print("黑棋.1失敗")
+                                    }
+                                }
+                                checkWin(xy: xy, flag: 0, suit: "黑")
+                                Firebase.shared.upadateAll(gameData: currentRoomData, roomID: GameDataComponent.roomNameString){ result in
+                                    switch (result) {
+                                    case .success(_):
+                                        print("黑棋.2成功")
+                                    case .failure(_):
+                                        print("黑棋.2失敗")
+                                    }
+                                }
+                                currentRoomData.flag = 1
+                                Firebase.shared.upadateAll(gameData: currentRoomData, roomID: GameDataComponent.roomNameString){ result in
+                                    switch (result) {
+                                    case .success(_):
+                                        print("黑棋.3成功")
+                                    case .failure(_):
+                                        print("黑棋.3失敗")
+                                    }
+                                }
+                            }
+                        }
+                        //P2介面、 遊戲說輪到P2了 P2為白子
+                        if UserDataComponent.CreateRoom == 1 && currentRoomData.flag == 1{
+                            showAlert = false
+                            if checkisblank(xy: xy){
+                                //check (x,y)沒棋子
+                                currentRoomData.chessboard[xy].data = "白"
+                                Firebase.shared.upadateAll(gameData: currentRoomData, roomID: GameDataComponent.roomNameString){ result in
+                                    switch (result) {
+                                    case .success(_):
+                                        print("白棋.1成功")
+                                    case .failure(_):
+                                        print("白棋.1失敗")
+                                    }
+                                }
+                                checkWin(xy: xy, flag: 1, suit: "白")
+                                Firebase.shared.upadateAll(gameData: currentRoomData, roomID: GameDataComponent.roomNameString){ result in
+                                    switch (result) {
+                                    case .success(_):
+                                        print("白棋.2成功")
+                                    case .failure(_):
+                                        print("白棋.2失敗")
+                                    }
+                                }
+                                currentRoomData.flag = 0
+                                Firebase.shared.upadateAll(gameData: currentRoomData, roomID: GameDataComponent.roomNameString){ result in
+                                    switch (result) {
+                                    case .success(_):
+                                        print("白棋.3成功")
+                                    case .failure(_):
+                                        print("白棋.3失敗")
+                                    }
+                                }
+                            }
                         }
                     }, label: {
                         Image("circle_ok")
@@ -540,8 +604,11 @@ struct GameStartPage: View {
         }.background(
             Image("mountain_background")
                 .contrast(0.8))
+        .fullScreenCover(isPresented: $currentRoomData.finish, content: {
+            WinPage()
+        })
         .onAppear{
-         //抓取房間
+            //抓取房間
             Firebase.shared.fetchRooms(){ result in
              switch (result) {
              case .success(let dataArray):
@@ -554,13 +621,12 @@ struct GameStartPage: View {
              case .failure(_):
                  print("房間抓取失敗")
              }
-         }
-         //更新房間
+            }
+            //更新房間
             Firebase.shared.checkRoomsChange(roomID: GameDataComponent.roomNameString){ result in
              switch (result) {
              case .success(let updatedRooms):
                  currentRoomData = updatedRooms
-                 print("gamestart \(currentRoomData.gamestart)")
              case .failure(_):
                  print("房間更新失敗")
              }

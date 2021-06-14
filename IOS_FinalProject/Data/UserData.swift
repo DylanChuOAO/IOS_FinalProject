@@ -36,9 +36,10 @@ struct GameData: Codable, Identifiable {
     @DocumentID var id: String?
     var roomNameString: String
     var gamestart: Bool
-    var chessboard: [[chessboard]]
+    var chessboard: [chessboard]
     var flag: Int//0:黑 1:白
     var whoWin: Int
+    var finish: Bool
     var player1: playerData
     var player2: playerData
 }
@@ -53,14 +54,14 @@ struct playerData: Codable {
 struct chessboard: Codable {
     var data: String//"無" "黑" "白"
 }
-var boards = [//9*9
-    [chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無")],//1
-    [chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無")],//2
-    [chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無")],//3
-    [chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無")],//4
-    [chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無")],//5
-    [chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無")],//6
-    [chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無")],//7
-    [chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無")],//8
-    [chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無")],//9
+var boards = [ //9*9
+    chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"),//1
+    chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"),//2
+    chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"),//3
+    chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"),//4
+    chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"),//5
+    chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"),//6
+    chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"),//7
+    chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"),//8
+    chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"), chessboard(data: "無"),//9
 ]

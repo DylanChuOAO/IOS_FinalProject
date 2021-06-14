@@ -17,7 +17,7 @@ import FirebaseStorageSwift
 struct WaitingRoomPage: View {
     @EnvironmentObject private var UserDataComponent: userData
     @EnvironmentObject private var GameDataComponent: gameData
-    @State private var currentRoomData = GameData(roomNameString: "", gamestart: true, chessboard: boards, flag: 0, whoWin: -1, player1: playerData(Suit: "黑", Name: "", Body: 0, Eye: 0, Hat: 0), player2: playerData(Suit: "白", Name: "", Body: 0, Eye: 0, Hat: 0))
+    @State private var currentRoomData = GameData(roomNameString: "", gamestart: false, chessboard: boards, flag: 0, whoWin: -1, finish: false, player1: playerData(Suit: "黑", Name: "", Body: 0, Eye: 0, Hat: 0), player2: playerData(Suit: "白", Name: "", Body: 0, Eye: 0, Hat: 0))
     @State private var ImageString = ""
     @State private var alertText: String = ""
     @State private var alertButtonText: String = ""
@@ -179,7 +179,6 @@ struct WaitingRoomPage: View {
                 switch (result) {
                 case .success(let updatedRooms):
                     currentRoomData = updatedRooms
-                    print("gamestart \(currentRoomData.gamestart)")
                 case .failure(_):
                     print("房間更新失敗")
                 }
