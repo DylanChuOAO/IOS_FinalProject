@@ -17,6 +17,9 @@ struct GamePage: View {
     @State private var isJoinGamePage = false
     @State private var isUserDataPage = false
     @State private var isContentView = false
+    func buttonTap() {
+        fatalError()
+    }
     var body: some View {
         VStack{
             VStack{
@@ -91,6 +94,17 @@ struct GamePage: View {
                         ).padding()
                 }).fullScreenCover(isPresented: $isContentView, content: {
                     ContentView()
+                })
+                Button(action: {
+                    buttonTap()
+                }, label: {
+                    Text("FatalError")
+                        .font(.custom("jf-openhuninn-1.1", size: 25))
+                        .frame(width: 200,height: 30)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.blue, lineWidth: 3)
+                        ).padding()
                 })
                 Spacer()
             }

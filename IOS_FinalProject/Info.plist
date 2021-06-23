@@ -18,8 +18,12 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-4347309518833360~8422426401</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>Privacy — Tracking Usage Description</key>
+	<string>your data will be used to deliver personalized ads to you</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>jf-openhuninn-1.1.ttf</string>

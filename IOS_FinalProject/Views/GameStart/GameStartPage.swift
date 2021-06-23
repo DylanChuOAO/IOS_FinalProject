@@ -425,6 +425,26 @@ struct GameStartPage: View {
         //判斷右上 左下
         ObliWin2(xy: xy, flag: flag, suit: suit)
     }
+    func Buttonup() ->  Void{
+        if UserDataComponent.Currentselected >= 9{
+            UserDataComponent.Currentselected -= 9
+        }
+    }
+    func Buttondown() ->  Void{
+        if UserDataComponent.Currentselected <= 71{
+            UserDataComponent.Currentselected += 9
+        }
+    }
+    func Buttonleft() ->  Void{
+        if UserDataComponent.Currentselected%9 != 0{
+            UserDataComponent.Currentselected -= 1
+        }
+    }
+    func Buttonright() ->  Void{
+        if UserDataComponent.Currentselected%9 != 8{
+            UserDataComponent.Currentselected += 1
+        }
+    }
     var body: some View {
         VStack{
             HStack{
@@ -451,6 +471,8 @@ struct GameStartPage: View {
                 VStack{
                     Text("遊戲開始")
                         .font(.custom("HanziPenTC-W5", size: 40))
+                    Text(currentRoomData.roomNameString)
+                        .font(.custom("HanziPenTC-W5", size: 25))
                 }
                 VStack{
                     ZStack{
@@ -477,40 +499,81 @@ struct GameStartPage: View {
             ScrollView{
                 HStack{
                     VStack{
-                        HStack{
-                            Image("x")
+                        //上
+                        Button(action: {
+                            Buttonup()
+                        }, label: {
+                            Image("up")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 80, height: 80, alignment: .center)
-                            TextField(" 輸入X(列)", text: $X)
-                                .frame(width: 100, height: 70, alignment: .center)
-                                .background(Color.yellow
-                                                .blur(radius: 6)
-                                                .cornerRadius(20))
-                                .padding()
-                        }.background(Color.blue
-                                        .blur(radius: 6)
-                                        .cornerRadius(20))
+                                .border(Color.black, width: 1)
+                        })
                         HStack{
-                            Image("y")
+                            //左
+                            Button(action: {
+                                Buttonleft()
+                            }, label: {
+                                Image("left")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 80, height: 80, alignment: .center)
+                                    .border(Color.black, width: 1)
+                            })
+                            Spacer()
+                            //右
+                            Button(action: {
+                                Buttonright()
+                            }, label: {
+                                Image("right")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 80, height: 80, alignment: .center)
+                                    .border(Color.black, width: 1)
+                            })
+                        }
+                        //下
+                        Button(action: {
+                            Buttondown()
+                        }, label: {
+                            Image("down")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 80, height: 80, alignment: .center)
-                            TextField(" 輸入y(行)", text: $Y)
-                                .frame(width: 100, height: 70, alignment: .center)
-                                .background(Color.yellow
-                                                .blur(radius: 6)
-                                                .cornerRadius(20))
-                                .padding()
-                        }.background(Color.blue
-                                        .blur(radius: 6)
-                                        .cornerRadius(20))
+                                .border(Color.black, width: 1)
+                        })
+                        /*HStack{
+                         Image("x")
+                             .resizable()
+                             .scaledToFit()
+                             .frame(width: 80, height: 80, alignment: .center)
+                         TextField(" 輸入X(列)", text: $X)
+                             .frame(width: 100, height: 70, alignment: .center)
+                             .background(Color.yellow
+                                             .blur(radius: 6)
+                                             .cornerRadius(20))
+                             .padding()
+                     }.background(Color.blue
+                                     .blur(radius: 6)
+                                     .cornerRadius(20))
+                     HStack{
+                         Image("y")
+                             .resizable()
+                             .scaledToFit()
+                             .frame(width: 80, height: 80, alignment: .center)
+                         TextField(" 輸入y(行)", text: $Y)
+                             .frame(width: 100, height: 70, alignment: .center)
+                             .background(Color.yellow
+                                             .blur(radius: 6)
+                                             .cornerRadius(20))
+                             .padding()
+                     }.background(Color.blue
+                                     .blur(radius: 6)
+                                     .cornerRadius(20))*/
                     }
                     //GO button
                     Button(action: {
-                        let xInt = Int(X)!
-                        let yInt = Int(Y)!
-                        let xy = (xInt-1)*9+(yInt-1)
+                        let xy = UserDataComponent.Currentselected
                         //P1介面、 遊戲說輪到P2了
                         if UserDataComponent.CreateRoom == 0 && currentRoomData.flag == 1{
                             alertText = "還沒輪到你"

@@ -20,6 +20,7 @@
 		FC306A12266685F900F6BA58 /* GameStartPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC306A11266685F900F6BA58 /* GameStartPage.swift */; };
 		FC30F38126776DB900097A43 /* 黃金傳說.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FC30F38026776DB900097A43 /* 黃金傳說.mp3 */; };
 		FC30F38326776DF000097A43 /* AVPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC30F38226776DF000097A43 /* AVPlayer.swift */; };
+		FC30F38926830FEA00097A43 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = FC30F38826830FEA00097A43 /* FirebaseCrashlytics */; };
 		FC3B9EF126395423007E993A /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC3B9EF026395423007E993A /* Data.swift */; };
 		FC8A6B9A2639054F00567B35 /* IOS_FinalProjectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8A6B992639054F00567B35 /* IOS_FinalProjectApp.swift */; };
 		FC8A6B9C2639054F00567B35 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8A6B9B2639054F00567B35 /* ContentView.swift */; };
@@ -75,6 +76,7 @@
 				FC2723E7265DF85D0043D2B7 /* FirebaseAnalyticsSwift-Beta in Frameworks */,
 				FC2723E5265DF20A0043D2B7 /* Kingfisher in Frameworks */,
 				FC8A6BAE263908D900567B35 /* FirebaseAuth in Frameworks */,
+				FC30F38926830FEA00097A43 /* FirebaseCrashlytics in Frameworks */,
 				FC8A6BB326390B9B00567B35 /* FirebaseFirestoreSwift-Beta in Frameworks */,
 				FC8A6BB526390BB200567B35 /* FirebaseStorageSwift-Beta in Frameworks */,
 			);
@@ -213,6 +215,7 @@
 				FC8A6B922639054F00567B35 /* Sources */,
 				FC8A6B932639054F00567B35 /* Frameworks */,
 				FC8A6B942639054F00567B35 /* Resources */,
+				FC30F38A2683105A00097A43 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -225,6 +228,7 @@
 				FC8A6BB426390BB200567B35 /* FirebaseStorageSwift-Beta */,
 				FC2723E4265DF20A0043D2B7 /* Kingfisher */,
 				FC2723E6265DF85D0043D2B7 /* FirebaseAnalyticsSwift-Beta */,
+				FC30F38826830FEA00097A43 /* FirebaseCrashlytics */,
 			);
 			productName = IOS_FinalProject;
 			productReference = FC8A6B962639054F00567B35 /* IOS_FinalProject.app */;
@@ -283,6 +287,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		FC30F38A2683105A00097A43 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${BUILD_DIR%Build/*}SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FC8A6B922639054F00567B35 /* Sources */ = {
@@ -435,6 +461,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"IOS_FinalProject/Preview Content\"";
 				DEVELOPMENT_TEAM = 764C65R866;
 				ENABLE_PREVIEWS = YES;
@@ -535,6 +562,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = FC8A6BAC263908D900567B35 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseAnalyticsSwift-Beta";
+		};
+		FC30F38826830FEA00097A43 /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FC8A6BAC263908D900567B35 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
 		};
 		FC8A6BAD263908D900567B35 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;

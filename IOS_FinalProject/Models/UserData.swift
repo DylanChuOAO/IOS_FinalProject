@@ -17,6 +17,7 @@ class userData: ObservableObject {
     @Published var Gender: Int = 0
     @Published var Age: Float = 18
     @Published var CreateRoom: Int = -1
+    @Published var Currentselected: Int = 0
 }
 struct UserData: Codable, Identifiable {
     @DocumentID var id: String?

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseAuth
+import AppTrackingTransparency
 
 struct ContentView: View {
     @EnvironmentObject private var DataComponent: userData
@@ -15,6 +16,22 @@ struct ContentView: View {
     @State private var isGamePage = false
     @State private var isCreate = false
     @State private var returnBool = false
+    func requestTracking() {
+            ATTrackingManager.requestTrackingAuthorization { status in
+                switch status {
+                case .notDetermined:
+                    break
+                case .restricted:
+                    break
+                case .denied:
+                    break
+                case .authorized:
+                    break
+                @unknown default:
+                    break
+                }
+            }
+        }
  var body: some View {
     NavigationView{
         VStack{
@@ -83,6 +100,7 @@ struct ContentView: View {
                                                 returnBool = true
                                             }
                                         }
+                                        requestTracking()
                                         isGamePage = true
                                     case .failure(_):
                                         print("\(user.uid)資料抓取失敗")

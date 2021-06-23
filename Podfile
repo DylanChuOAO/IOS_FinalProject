@@ -6,6 +6,5 @@ target 'IOS_FinalProject' do
   use_frameworks!
 
   # Pods for IOS_FinalProject
-  pod 'Kingfisher'
-  pod 'Google-Mobile-Ads-SDK'
+	pod 'Google-Mobile-Ads-SDK'
 end
